@@ -1,7 +1,14 @@
-import "./App.css"
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router";
+import HomePage from "./pages/HomePage";
+import SignUp from "./pages/SignUp";
 
-function App() {
-  return <h1>Hello world!</h1>
+function App() 
+{
+  return <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/sign-up" element={<SignUp />} />
+    </Routes>
   
 }
 
