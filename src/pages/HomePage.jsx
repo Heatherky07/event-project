@@ -1,7 +1,8 @@
 import MainLayout from '../Layouts/MainLayout';
+import Hero from '../components/Hero';
 const HomePage = () => {
- return <MainLayout>Homepage ito</MainLayout>
-  
-}
+    return <MainLayout> <Hero /> </MainLayout>
+
+};
 
 export default HomePage;

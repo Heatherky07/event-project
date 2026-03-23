@@ -3,12 +3,36 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import HomePage from "./pages/HomePage";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import { useState, useEffect } from "react";
+import { supabase } from "./utils/supabase";
+import { SessionContext } from "./Contexts/SessionContext";
+
 function App() {
-  return <Routes>
-    <Route path="/" element={<HomePage />} />
-    <Route path="/sign-up" element={<SignUp />} />
-    <Route path="/Login" element={<Login />} />
-  </Routes>
+  const [session, setSession] = useState(null)
+
+  useEffect(() => {
+    const {
+      data: { subscription }
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') {
+        console.log("event", event);
+        console.log("session", session);
+        setSession(null);
+      } else if (session) {
+        setSession(session);
+      };
+    });
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+  return <SessionContext.Provider value={session}>
+    <Routes>
+      <Route path="/HomePage" element={<HomePage />} />
+      <Route path="/sign-up" element={<SignUp />} />
+      <Route path="/Login" element={<Login />} />
+    </Routes>
+  </SessionContext.Provider>
 
 }
 

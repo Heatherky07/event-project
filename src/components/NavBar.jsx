@@ -2,9 +2,12 @@ import React from 'react'
 import { NavLink } from "react-router";
 import SignupIcon from './Icons/SignUpIcon';
 import HomeIcon from './Icons/HomeIcon';
-import Login from '../pages/Login';
+import { useContext } from 'react';
+import { SessionContext } from '../Contexts/SessionContext';
 
 const NavBar = () => {
+  const session = useContext(SessionContext);
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex w-full max-w-6xl mx-auto">
@@ -16,7 +19,7 @@ const NavBar = () => {
         </div>
         <div className="flex-none">
           <NavLink
-            to="/"
+            to="/HomePage"
             className="btn btn-primary mr-4 rounded-full btn-outline"
           >
             <HomeIcon className="text-lg" />
@@ -29,10 +32,12 @@ const NavBar = () => {
             <HomeIcon className="text-lg" />
             Login
           </NavLink>
-          <NavLink to="/sign-up" className="btn btn-primary mr-5 rounded-full btn-outline">
-            <SignupIcon className="text-xl" />
-            Sign-up B
-          </NavLink>
+          {!session && (
+            <NavLink to="/Sign-up" className="btn btn-primary mr-5 rounded-full btn-outline">
+              <SignupIcon className="text-xl" />
+              Sign-up
+            </NavLink>)
+          }
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
