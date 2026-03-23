@@ -2,60 +2,61 @@ import React from 'react'
 import { NavLink } from "react-router";
 import SignupIcon from './Icons/SignUpIcon';
 import HomeIcon from './Icons/HomeIcon';
+import Login from '../pages/Login';
 
 const NavBar = () => {
   return (
     <div className="navbar bg-base-100 shadow-sm">
-<div className="flex w-full max-w-6xl mx-auto">
-    <div className="flex-1">
-    <a className="btn btn-ghost text-xl px-0">
-            <span className="text-primary">Event</span> 
+      <div className="flex w-full max-w-6xl mx-auto">
+        <div className="flex-1">
+          <a className="btn btn-ghost text-xl px-0">
+            <span className="text-primary">Event</span>
             <span className="text-secondary">Gate</span>
-    </a>
-  </div>
-  <div className="flex-none">
-     <NavLink
-						to="/"
-						className="btn btn-primary mr-4 rounded-full btn-outline"
-					>
-						<HomeIcon className="text-lg" />
-						Home
-					</NavLink>
+          </a>
+        </div>
+        <div className="flex-none">
           <NavLink
-						to="/Login"
-						className="btn btn-primary mr-4 rounded-full btn-outline"
-					>
-						<HomeIcon className="text-lg" />
-						Login
-					</NavLink>
-     <NavLink to="/sign-up" className="btn btn-primary mr-5 rounded-full btn-outline">
-     <SignupIcon className="text-xl" />
-     Sign-up B
-     </NavLink>
-    <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-        <div className="w-10 rounded-full">
-          <img
-            alt="Tailwind CSS Navbar component"
-            src="https://tse1.mm.bing.net/th/id/OIP.6sJJGvJdRSz_odTZ_xh8WgHaFK?rs=1&pid=ImgDetMain&o=7&rm=3" />
+            to="/"
+            className="btn btn-primary mr-4 rounded-full btn-outline"
+          >
+            <HomeIcon className="text-lg" />
+            Home
+          </NavLink>
+          <NavLink
+            to="/Login"
+            className="btn btn-primary mr-4 rounded-full btn-outline"
+          >
+            <HomeIcon className="text-lg" />
+            Login
+          </NavLink>
+          <NavLink to="/sign-up" className="btn btn-primary mr-5 rounded-full btn-outline">
+            <SignupIcon className="text-xl" />
+            Sign-up B
+          </NavLink>
+          <div className="dropdown dropdown-end">
+            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS Navbar component"
+                  src="https://tse1.mm.bing.net/th/id/OIP.6sJJGvJdRSz_odTZ_xh8WgHaFK?rs=1&pid=ImgDetMain&o=7&rm=3" />
+              </div>
+            </div>
+            <ul
+              tabIndex="-1"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+              <li>
+                <a className="justify-between">
+                  Profile
+                  <span className="badge">New</span>
+                </a>
+              </li>
+              <li><a>Settings</a></li>
+              <li><a>Logout</a></li>
+            </ul>
+          </div>
         </div>
       </div>
-      <ul
-        tabIndex="-1"
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li>
-          <a className="justify-between">
-            Profile
-            <span className="badge">New</span>
-          </a>
-        </li>
-        <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
-      </ul>
     </div>
-  </div>
-</div>
-</div>
   )
 }
 
