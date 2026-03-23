@@ -1,7 +1,10 @@
-import MainLayout from '../Layouts/MainLayout'
-const Login = () => {
-return <MainLayout>Login</MainLayout>
+import Input from '../components/Form/Input';
+import MainLayout from '../Layouts/MainLayout';
+import Card from '../components/Card';
 
+const Login = () => {
+    return (<MainLayout>Homepage ito</MainLayout>
+    )
 }
 
 export default Login
