@@ -10,6 +10,7 @@ const Input = ({label,type, placeholder, name}) => {
         className="input" 
         placeholder={placeholder} />
         </fieldset>
+ 
   )
 }
 

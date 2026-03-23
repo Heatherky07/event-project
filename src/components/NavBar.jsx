@@ -21,6 +21,13 @@ const NavBar = () => {
 						<HomeIcon className="text-lg" />
 						Home
 					</NavLink>
+          <NavLink
+						to="/Login"
+						className="btn btn-primary mr-4 rounded-full btn-outline"
+					>
+						<HomeIcon className="text-lg" />
+						Login
+					</NavLink>
      <NavLink to="/sign-up" className="btn btn-primary mr-5 rounded-full btn-outline">
      <SignupIcon className="text-xl" />
      Sign-up B
