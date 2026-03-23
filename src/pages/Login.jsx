@@ -1,38 +1,67 @@
 import Input from '../components/Form/Input';
 import MainLayout from '../Layouts/MainLayout';
 import Card from '../components/Card';
+import { supabase } from '../utils/supabase';
+import { useContext, useEffect } from 'react';
+import { SessionContext } from '../Contexts/SessionContext';
+import { useNavigate } from 'react-router';
 
 const Login = () => {
+    const session = useContext(SessionContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (session) {
+            navigate("/HomePage");
+        }
+    },
+
+        [session, navigate])
+
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
-        const LoginForm = {
+        const loginForm = {
             email: formData.get("Email"),
             password: formData.get("Password"),
         };
+
         const { data, error } = await supabase.auth.signInWithPassword({
-            email: LoginForm.email,
-            password: LoginForm.password,
+            email: loginForm.email,
+            password: loginForm.password,
         });
         if (error) alert(error);
         if (data) console.log(data);
 
-        console.log("LoginForm", LoginForm);
+        console.log("loginForm", loginForm);
     }
-
     return (<MainLayout>
         <div className="flex justify-center items-center min-h-screen">
             <div className="w-95">
                 <Card>
-                    <h2 className="text-2xl font-bold mb-4">Login</h2>
-                    <Input label="Email" type="email" placeholder="Enter your email" />
-                    <Input label="Password" type="password" placeholder="Enter your password" />
-                    <button className="btn btn-primary mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5">Login</button>
+                    <h1 className="text-2xl font-bold mb-4">Login</h1>
+                    <form onSubmit={handleSubmit}>
 
-
+                        <Input
+                            label="Email"
+                            name="Email"
+                            placeholder="Enter your Email"
+                            type="Email"
+                        />
+                        <Input
+                            label="Password"
+                            name="Password"
+                            placeholder="Enter your Password"
+                            type="Password"
+                        />
+                        <button className="btn btn-primary mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5">
+                            Submit</button>
+                    </form>
                 </Card>
             </div>
         </div>
+
     </MainLayout>
     )
 }

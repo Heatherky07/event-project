@@ -31,18 +31,25 @@ const NavBar = () => {
             <HomeIcon className="text-lg" />
             Home
           </NavLink>
-          <NavLink
-            to="/Login"
-            className="btn btn-primary mr-4 rounded-full btn-outline"
-          >
-            <HomeIcon className="text-lg" />
-            Login
-          </NavLink>
+
           {!session && (
-            <NavLink to="/Sign-up" className="btn btn-primary mr-5 rounded-full btn-outline">
-              <SignupIcon className="text-xl" />
-              Sign-up
-            </NavLink>)
+
+            <>
+              <NavLink to="/Sign-up" className="btn btn-primary mr-5 rounded-full btn-outline">
+                <SignupIcon className="text-xl" />
+                Sign-up
+              </NavLink>
+
+
+              <NavLink
+                to="/Login"
+                className="btn btn-primary mr-4 rounded-full btn-outline"
+              >
+                <HomeIcon className="text-lg" />
+                Login
+              </NavLink>
+            </>
+          )
           }
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
