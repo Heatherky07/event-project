@@ -15,7 +15,7 @@ const SignUp = () => {
       password: formData.get("Password"),
     };
 
-    const { data, error } = await supabase.auth.SignUp({
+    const { data, error } = await supabase.auth.signUp({
       email: signupForm.email,
       password: signupForm.password,
     });

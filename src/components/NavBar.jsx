@@ -4,9 +4,15 @@ import SignupIcon from './Icons/SignUpIcon';
 import HomeIcon from './Icons/HomeIcon';
 import { useContext } from 'react';
 import { SessionContext } from '../Contexts/SessionContext';
+import { supabase } from '../utils/supabase';
 
 const NavBar = () => {
   const session = useContext(SessionContext);
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut()
+    if (error) alert("baliw ka ba");
+  };
 
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -55,8 +61,12 @@ const NavBar = () => {
                   <span className="badge">New</span>
                 </a>
               </li>
-              <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
+              <li>
+                <a>Settings</a>
+              </li>
+              <li>
+                <button onClick={handleLogout}>Logout</button>
+              </li>
             </ul>
           </div>
         </div>
