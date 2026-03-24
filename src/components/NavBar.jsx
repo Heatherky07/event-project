@@ -11,7 +11,7 @@ const NavBar = () => {
   const session = useContext(SessionContext);
   const Navigate = useNavigate();
 
-
+  // Handle user logout by calling the Supabase signOut function and navigating to the login page
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut()
     if (error) alert("baliw ka ba");
@@ -28,6 +28,8 @@ const NavBar = () => {
           </a>
         </div>
         <div className="flex-none">
+
+          {/* Navigation Links */}
           <NavLink
             to="/HomePage"
             className="btn btn-primary mr-4 rounded-full btn-outline"
@@ -70,10 +72,10 @@ const NavBar = () => {
                 tabIndex="-1"
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                 <li>
-                  <a className="justify-between">
+                  <NavLink to="/Profile" className="justify-between">
                     Profile
                     <span className="badge">New</span>
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
                   <a>Settings</a>
