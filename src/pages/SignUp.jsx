@@ -3,15 +3,19 @@ import MainLayout from '../Layouts/MainLayout';
 import Card from '../components/Card';
 import CheckIcon from '../components/Icons/CheckIcon';
 import { supabase } from '../utils/supabase';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { SessionContext } from '../Contexts/SessionContext';
 
 const SignUp = () => {
+
   // Access the session context to check if the user is already logged in
   const session = useContext(SessionContext);
+
   // Redirect to homepage if user is already logged in
   const navigate = useNavigate();
+
+  const [profile, setProfile] = useState(null);
 
   // If there is a session, navigate to the homepage
   useEffect(() => { }, [session, navigate])
