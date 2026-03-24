@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "./utils/supabase";
 import { SessionContext } from "./Contexts/SessionContext";
 import Profile from "./pages/Profile";
+import Edit from "./pages/Edit";
 
 function App() {
   // State to hold the current user session
@@ -37,6 +38,8 @@ function App() {
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/Profile" element={<Profile />} />
+      <Route path="/edit-profile" element={<Edit />} />
+
 
     </Routes>
   </SessionContext.Provider>

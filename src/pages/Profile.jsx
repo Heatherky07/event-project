@@ -4,6 +4,7 @@ import { supabase } from '../utils/supabase';
 import { useEffect, useContext, useState } from 'react';
 import { SessionContext } from '../Contexts/SessionContext';
 import { Link } from 'react-router';
+import EditIcon from '../components/Icons/EditIcon';
 
 
 const Profile = () => {
@@ -36,6 +37,7 @@ const Profile = () => {
             Email: {profile?.email}<br /><br />
             <div >
                 <Link to="/edit-profile" className="btn btn-primary rounded-full">
+                    <EditIcon className="text-lg mr-2" />
                     Edit Profile
                 </Link> <br />
             </div>
