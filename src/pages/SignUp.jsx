@@ -3,8 +3,23 @@ import MainLayout from '../Layouts/MainLayout';
 import Card from '../components/Card';
 import CheckIcon from '../components/Icons/CheckIcon';
 import { supabase } from '../utils/supabase';
+import { useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router';
+import { SessionContext } from '../Contexts/SessionContext';
 
 const SignUp = () => {
+  // Access the session context to check if the user is already logged in
+  const session = useContext(SessionContext);
+  // Redirect to homepage if user is already logged in
+  const navigate = useNavigate();
+
+  // If there is a session, navigate to the homepage
+  useEffect(() => { }, [session, navigate])
+  if (session) {
+    navigate("/HomePage");
+  }
+
+  // Handle form submission for signing up
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -15,6 +30,7 @@ const SignUp = () => {
       password: formData.get("Password"),
     };
 
+    // Call the Supabase sign-up function with the form data
     const { data, error } = await supabase.auth.signUp({
       email: signupForm.email,
       password: signupForm.password,
@@ -24,6 +40,8 @@ const SignUp = () => {
 
     console.log("signupForm", signupForm);
   }
+
+  // Render the sign-up form inside the main layout
   return (
     <MainLayout>
       <div className="flex justify-center items-center min-h-screen">
