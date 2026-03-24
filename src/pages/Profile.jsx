@@ -1,23 +1,30 @@
 import React from 'react'
 import MainLayout from '../Layouts/MainLayout';
 import { supabase } from '../utils/supabase';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
+import { SessionContext } from '../Contexts/SessionContext';
+
 
 const Profile = () => {
+    const session = useContext(SessionContext);
     useEffect(() => {
         const fetchProfile = async () => {
-
-            const { data, error } = await supabase.from('profiles').select()
-            if (error) alert(error)
+            const { data, error } = await supabase
+                .from('profiles')
+                .select()
+                .eq('id', session.user.id)
+                .single();
+            if (error) alert(error.message);
             if (data) console.log("data", data);
         }
-        fetchProfile();
-    }, []);
-    return (
-        <MainLayout>
-            <div>Profile</div>
-        </MainLayout>
-    )
+
+        if (session) {
+            fetchProfile();
+        }
+    }, [session]);
+
+
+    return <MainLayout>Profile</MainLayout>
 }
 
-export default Profile
+export default Profile;
