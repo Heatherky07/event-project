@@ -72,7 +72,8 @@ const Edit = () => {
                                 type="email"
                             />
                             <button className="btn btn-primary rounded-full mt-5">
-                                <CheckIcon className="text-sm" /> Submit
+                                <CheckIcon className="text-sm" />
+                                Submit
                             </button>
                         </form>
                     </Card>
