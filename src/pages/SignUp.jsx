@@ -31,15 +31,32 @@ const SignUp = () => {
     };
 
     // Call the Supabase sign-up function with the form data
-    const { data, error } = await supabase.auth.signUp({
-      email: signupForm.email,
-      password: signupForm.password,
-    });
-    if (error) alert(error);
-    if (data) console.log(data);
+    const { data: signUpData, error: signUpError } = await supabase.auth.signUp(
+      {
+        email: signupForm.email,
+        password: signupForm.password,
+      });
 
-    console.log("signupForm", signupForm);
-  }
+    // If there is an error during sign-up, alert the user
+    if (signUpError) alert(signUpError);
+
+    // If sign-up is successful, insert the user's profile data into the "profiles" table
+    if (signUpData) {
+      console.log("signUpData", signUpData);
+      const { data: profileData, error: profileError } = await supabase
+        .from("profiles")
+        .insert({
+          id: signUpData.user.id,
+          firstname: signupForm.firstname,
+          lastname: signupForm.lastname,
+          email: signupForm.email,
+        });
+
+      // Alert the user if there is an error inserting the profile data, otherwise log the profile data
+      if (profileError) alert(profileError);
+      if (profileData) console.log("profileData", profileData);
+    }
+  };
 
   // Render the sign-up form inside the main layout
   return (

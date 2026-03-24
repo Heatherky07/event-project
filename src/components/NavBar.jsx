@@ -30,14 +30,16 @@ const NavBar = () => {
         <div className="flex-none">
 
           {/* Navigation Links */}
-          <NavLink
-            to="/HomePage"
-            className="btn btn-primary mr-4 rounded-full btn-outline"
-          >
-            <HomeIcon className="text-lg" />
-            Home
-          </NavLink>
 
+          {session && (
+            <NavLink
+              to="/HomePage"
+              className="btn btn-primary mr-4 rounded-full btn-outline"
+            >
+              <HomeIcon className="text-lg" />
+              Home
+            </NavLink>
+          )}
           {!session && (
 
             <>
