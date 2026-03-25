@@ -1,12 +1,24 @@
 import React from "react";
 import MainLayout from "../Layouts/MainLayout";
 import Input from "../components/Form/Input";
+import { supabase } from "../utils/supabase";
 
 const AddEvent = () => {
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("Form submitted");
-        // Handle form submission logic here
+        const formData = new FormData(event.target);
+        const formDataObject = Object.fromEntries(formData.entries());
+        console.log("formDataObject", formDataObject);
+        const { data: eventData, error: eventError } = await supabase
+            .from("events")
+            .insert([formDataObject])
+            .select()
+            .single();
+        if (eventError) alert(eventError);
+        if (eventData) {
+            console.log(eventData);
+
+        }
     };
 
     return (
