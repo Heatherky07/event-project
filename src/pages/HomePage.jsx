@@ -9,6 +9,7 @@ import Kalokohan from '../components/Kalokohan';
 const HomePage = () => {
     return (
         <MainLayout>
+
             < Kalokohan />
 
 

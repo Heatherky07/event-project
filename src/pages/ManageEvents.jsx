@@ -1,47 +1,41 @@
-import MainLayout from '../Layouts/MainLayout'
-import { Link } from 'react-router'
-import { supabase } from '../utils/supabase'
-import { useEffect, useState } from 'react'
-import EventCard from '../components/EventCard'
-
+import React, { useState } from "react";
+import MainLayout from "../Layouts/MainLayout";
+import { Link } from "react-router";
+import { supabase } from "../utils/supabase";
+import { useEffect } from "react";
+import EventCard from "../components/EventCard";
 
 const ManageEvents = () => {
     const [events, setEvents] = useState(null);
-    const fetchEvents = async () => {
-        const { data: eventsData, error: eventsError } = await supabase
-            .from("events")
-            .select()
-        if (eventsError) alert(eventsError);
-        if (eventsData) setEvents(eventsData);
-    };
-
-    fetchEvents();
 
     useEffect(() => {
+        const fetchEvents = async () => {
+            const { data: eventsData, error: eventsError } = await supabase
+                .from("events")
+                .select();
+            if (eventsError) alert(eventsError);
+            if (eventsData) setEvents(eventsData);
+        };
+
         fetchEvents();
     }, []);
-
 
     return (
         <MainLayout>
             <div className="pt-5">
                 <div className="text-right">
-                    <Link to="/add-event" className="btn btn-primary rounded-full ">
+                    <Link to="/add-event" className="btn btn-primary rounded-full">
                         Add Event
                     </Link>
                 </div>
-                <div className="pt-5 flex">
+                <div className="grid grid-cols-3 gap-4">
                     {events?.map((event) => {
-                        return (
-                            <EventCard event={event} />
-                        )
+                        return <EventCard event={event} />;
                     })}
-
                 </div>
-
             </div>
         </MainLayout>
-    )
-}
+    );
+};
 
-export default ManageEvents
+export default ManageEvents;
