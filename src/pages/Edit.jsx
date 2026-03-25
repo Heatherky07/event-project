@@ -11,7 +11,7 @@ import { useNavigate } from "react-router";
 
 
 const Edit = () => {
-    const session = useContext(SessionContext);
+    const { session, profile } = useContext(SessionContext);
     const navigate = useNavigate();
 
     useEffect(() => { }, [session, navigate])
@@ -45,6 +45,7 @@ const Edit = () => {
             navigate("/profile");
         }
     };
+    console.log("profile test", profile);
 
     return (
         <MainLayout>
@@ -58,18 +59,21 @@ const Edit = () => {
                                 placeholder="Enter your First Name"
                                 label="Firstname"
                                 type="text"
+                                defaultValue={profile?.firstname}
                             />
                             <Input
                                 name="lastname"
                                 placeholder="Enter your Last Name"
                                 label="Lastname"
                                 type="text"
+                                defaultValue={profile?.lastname}
                             />
                             <Input
                                 name="email"
                                 placeholder="Enter your Email"
                                 label="Email"
                                 type="email"
+                                defaultValue={profile?.email}
                             />
                             <button className="btn btn-primary rounded-full mt-5">
                                 <CheckIcon className="text-sm" />

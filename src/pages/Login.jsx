@@ -7,7 +7,8 @@ import { SessionContext } from '../Contexts/SessionContext';
 import { useNavigate } from 'react-router';
 
 const Login = () => {
-    const session = useContext(SessionContext);
+    // Access the session context to check if the user is already logged in
+    const { session } = useContext(SessionContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -18,7 +19,7 @@ const Login = () => {
 
         [session, navigate])
 
-
+    // Handle form submission for logging in
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -27,6 +28,7 @@ const Login = () => {
             password: formData.get("Password"),
         };
 
+        // Call the Supabase sign-in function with the form data
         const { data, error } = await supabase.auth.signInWithPassword({
             email: loginForm.email,
             password: loginForm.password,
@@ -36,6 +38,8 @@ const Login = () => {
 
         console.log("loginForm", loginForm);
     }
+
+    // Render the login form inside the main layout
     return (<MainLayout>
         <div className="flex justify-center items-center min-h-screen">
             <div className="w-95">

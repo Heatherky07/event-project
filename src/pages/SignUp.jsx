@@ -10,7 +10,7 @@ import { SessionContext } from '../Contexts/SessionContext';
 const SignUp = () => {
 
   // Access the session context to check if the user is already logged in
-  const session = useContext(SessionContext);
+  const { session } = useContext(SessionContext);
 
   // Redirect to homepage if user is already logged in
   const navigate = useNavigate();

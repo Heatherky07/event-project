@@ -11,7 +11,8 @@ import Edit from "./pages/Edit";
 
 function App() {
   // State to hold the current user session
-  const [session, setSession] = useState(null)
+  const [session, setSession] = useState(null);
+  const [profile, setProfile] = useState(null);
   // Set up an effect to listen for authentication state changes
   useEffect(() => {
     const {
@@ -26,13 +27,34 @@ function App() {
       };
     });
 
+
+
     // Clean up the subscription when the component unmounts
     return () => {
       subscription.unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select()
+        .eq('id', session.user.id)
+        .single();
+
+      if (error) alert(error);
+      if (data) {
+        setProfile(data);
+      }
+    }
+
+    if (session) {
+      fetchProfile();
+    }
+  }, [session]);
   // Provide the session context to the rest of the app and set up routes
-  return <SessionContext.Provider value={session}>
+  return <SessionContext.Provider value={{ session, profile }}>
     <Routes>
       <Route path="/HomePage" element={<HomePage />} />
       <Route path="/sign-up" element={<SignUp />} />

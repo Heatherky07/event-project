@@ -8,7 +8,7 @@ import EditIcon from '../components/Icons/EditIcon';
 
 
 const Profile = () => {
-    const session = useContext(SessionContext);
+    const { session } = useContext(SessionContext);
     const [profile, setProfile] = useState(null);
     useEffect(() => {
         const fetchProfile = async () => {

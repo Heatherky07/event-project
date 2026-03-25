@@ -8,7 +8,7 @@ import { supabase } from '../utils/supabase';
 import { useNavigate } from 'react-router';
 
 const NavBar = () => {
-  const session = useContext(SessionContext);
+  const { session } = useContext(SessionContext);
   const Navigate = useNavigate();
 
   // Handle user logout by calling the Supabase signOut function and navigating to the login page
@@ -23,8 +23,10 @@ const NavBar = () => {
       <div className="flex w-full max-w-6xl mx-auto">
         <div className="flex-1">
           <a className="btn btn-ghost text-xl px-0">
-            <span className="text-primary">Event</span>
-            <span className="text-secondary">Gate</span>
+            <NavLink to="/HomePage" className="flex items-center">
+              <span className="text-primary">Event</span>
+              <span className="text-secondary">Gate</span>
+            </NavLink>
           </a>
         </div>
         <div className="flex-none">
