@@ -8,11 +8,11 @@ const ManageEvents = () => {
                     <Link to="/add-event" className="btn btn-primary rounded-full ">
                         Add Event
                     </Link>
-
                 </div>
                 <div className="pt-5 flex">ManageEvents
 
                 </div>
+
             </div>
         </MainLayout>
     )

@@ -2,8 +2,15 @@ import React from "react";
 import MainLayout from "../Layouts/MainLayout";
 import Input from "../components/Form/Input";
 import { supabase } from "../utils/supabase";
+import { useNavigate } from "react-router";
+import { useContext, useEffect } from "react";
+import { SessionContext } from "../Contexts/SessionContext";
 
 const AddEvent = () => {
+    const { event } = useContext(SessionContext);
+    const navigate = useNavigate();
+
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -16,10 +23,16 @@ const AddEvent = () => {
             .single();
         if (eventError) alert(eventError);
         if (eventData) {
+            navigate("/manage-events");
             console.log(eventData);
 
         }
     };
+    useEffect(() => { }, [event, navigate])
+    if (event) {
+        navigate("/manage-events");
+    }
+
 
     return (
         <MainLayout>

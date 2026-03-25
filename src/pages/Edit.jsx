@@ -12,7 +12,7 @@ import { useNavigate } from "react-router";
 
 const Edit = () => {
     const { session, profile, setProfile } = useContext(SessionContext);
-    const navigate = useNavigate();
+    const Navigate = useNavigate();
 
     useEffect(() => { }, [session, navigate])
     if (session) {
