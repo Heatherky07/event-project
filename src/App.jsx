@@ -8,6 +8,8 @@ import { supabase } from "./utils/supabase";
 import { SessionContext } from "./Contexts/SessionContext";
 import Profile from "./pages/Profile";
 import Edit from "./pages/Edit";
+import ManageEvents from "./pages/ManageEvents";
+import AddEvent from "./pages/AddEvent";
 
 function App() {
   // State to hold the current user session
@@ -22,6 +24,7 @@ function App() {
         console.log("event", event);
         console.log("session", session);
         setSession(null);
+        setProfile(null);
       } else if (session) {
         setSession(session);
       };
@@ -61,6 +64,10 @@ function App() {
       <Route path="/Login" element={<Login />} />
       <Route path="/Profile" element={<Profile />} />
       <Route path="/edit-profile" element={<Edit />} />
+      <Route path="/manage-events" element={<ManageEvents />} />
+      <Route path="/add-event" element={<AddEvent />} />
+
+
 
 
     </Routes>

@@ -8,16 +8,19 @@ import { useNavigate } from 'react-router';
 
 const Login = () => {
     // Access the session context to check if the user is already logged in
-    const { session } = useContext(SessionContext);
+    const { session, profile } = useContext(SessionContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (session) {
+        if (profile?.role === "user") {
             navigate("/HomePage");
+        }
+        else if (profile?.role === "admin") {
+            navigate("/manage-events");
         }
     },
 
-        [session, navigate])
+        [profile, navigate])
 
     // Handle form submission for logging in
     const handleSubmit = async (event) => {
