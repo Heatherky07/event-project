@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router";
-import HomePage from "./pages/";
+import HomePage from "./pages/HomePage";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import { useState, useEffect } from "react";
@@ -60,7 +60,7 @@ function App() {
   // Provide the session context to the rest of the app and set up routes
   return <SessionContext.Provider value={{ session, profile, setProfile }}>
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/HomePage" element={<HomePage />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/Profile" element={<Profile />} />
