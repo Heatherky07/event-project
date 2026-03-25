@@ -54,7 +54,7 @@ function App() {
     }
   }, [session]);
   // Provide the session context to the rest of the app and set up routes
-  return <SessionContext.Provider value={{ session, profile }}>
+  return <SessionContext.Provider value={{ session, profile, setProfile }}>
     <Routes>
       <Route path="/HomePage" element={<HomePage />} />
       <Route path="/sign-up" element={<SignUp />} />

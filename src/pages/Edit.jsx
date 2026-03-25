@@ -11,7 +11,7 @@ import { useNavigate } from "react-router";
 
 
 const Edit = () => {
-    const { session, profile } = useContext(SessionContext);
+    const { session, profile, setProfile } = useContext(SessionContext);
     const navigate = useNavigate();
 
     useEffect(() => { }, [session, navigate])
@@ -38,11 +38,13 @@ const Edit = () => {
                 email: signupForm.email,
             })
             .eq("id", session.user.id)
-            .select();
+            .select()
+            .single();
 
         if (profileError) alert(profileError);
         if (profileData) {
             navigate("/profile");
+            setProfile(profileData);
         }
     };
     console.log("profile test", profile);
