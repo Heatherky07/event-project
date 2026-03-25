@@ -23,7 +23,7 @@ const NavBar = () => {
       <div className="flex w-full max-w-6xl mx-auto">
         <div className="flex-1">
           <div className="btn btn-ghost text-xl px-0">
-            <NavLink to="/" className="flex items-center">
+            <NavLink to="/HomePage" className="flex items-center">
               <span className="text-primary">Event</span>
               <span className="text-secondary">Gate</span>
             </NavLink>
@@ -34,7 +34,7 @@ const NavBar = () => {
           {/* Navigation Links */}
           {session && (
             <NavLink
-              to="/"
+              to="/HomePage"
               className="btn btn-primary mr-4 rounded-full btn-outline"
             >
               <HomeIcon className="text-lg" />
