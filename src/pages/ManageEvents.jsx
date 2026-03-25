@@ -1,6 +1,27 @@
 import MainLayout from '../Layouts/MainLayout'
 import { Link } from 'react-router'
+import { supabase } from '../utils/supabase'
+import { useEffect, useState } from 'react'
+import EventCard from '../components/EventCard'
+
+
 const ManageEvents = () => {
+    const [events, setEvents] = useState(null);
+    const fetchEvents = async () => {
+        const { data: eventsData, error: eventsError } = await supabase
+            .from("events")
+            .select()
+        if (eventsError) alert(eventsError);
+        if (eventsData) setEvents(eventsData);
+    };
+
+    fetchEvents();
+
+    useEffect(() => {
+        fetchEvents();
+    }, []);
+
+
     return (
         <MainLayout>
             <div className="pt-5">
@@ -9,7 +30,12 @@ const ManageEvents = () => {
                         Add Event
                     </Link>
                 </div>
-                <div className="pt-5 flex">ManageEvents
+                <div className="pt-5 flex">
+                    {events?.map((event) => {
+                        return (
+                            <EventCard event={event} />
+                        )
+                    })}
 
                 </div>
 
