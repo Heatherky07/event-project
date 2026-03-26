@@ -5,9 +5,14 @@ import { useContext } from "react";
 import { SessionContext } from "../Contexts/SessionContext";
 import { supabase } from "../utils/supabase";
 
-const EventCard = ({ event }) => {
-
+const EventCard = ({ event, registrations, setRegistrations }) => {
     const { profile } = useContext(SessionContext);
+    const isRegistered = registrations?.some(
+        (registration) =>
+            registration.profile_id === profile?.id &&
+            registration.event_id === event.id,
+    );
+
     const register = async () => {
         const { data, error } = await supabase
             .from("registrations")
@@ -19,10 +24,30 @@ const EventCard = ({ event }) => {
             .single();
 
         if (error) alert(error);
-        if (data) console.log("data", data);
+        if (data) {
+            setRegistrations((prev) => {
+                return [...prev, data];
+            });
+        }
+    };
 
-        console.log(`todo: register event ${eventId}`)
-    }
+    const unregister = async () => {
+        const { data: deletedRegistration, errorDeleteRegistration } =
+            await supabase
+                .from("registrations")
+                .delete()
+                .eq("event_id", event.id)
+                .select()
+                .single();
+        if (errorDeleteRegistration) alert(deletedRegistration);
+        if (deletedRegistration) {
+            const updatedRegistrations = registrations.filter((registration) => {
+                return registration.id != deletedRegistration.id;
+            });
+            setRegistrations(updatedRegistrations);
+        }
+    };
+
     return (
         <Card>
             <h2 className="text-xl font-bold">{event.title}</h2>
@@ -48,19 +73,33 @@ const EventCard = ({ event }) => {
                         >
                             Edit
                         </Link>
-                        <button className="btn btn-secondary rounded-full ml-3">Delete</button>
+
+                        <button className="btn btn-secondary rounded-full ml-3">
+                            Delete
+                        </button>
                     </>
                 )}
 
-                {profile?.role === "user" && (
-                    <button className="btn btn-primary rounded-full" onClick={register}>
-
+                {profile?.role === "user" && !isRegistered && (
+                    <button className="ml-3 btn btn-primary rounded-full" onClick={register}>
                         Register
                     </button>
                 )}
+
+                {profile?.role === "user" && isRegistered && (
+                    <button
+                        className="ml-3 btn btn-secondary rounded-full"
+                        onClick={unregister}
+                    >
+                        Unregister
+                    </button>
+                )}
             </div>
+
+            {isRegistered && <p>You are already registered</p>}
         </Card>
     );
 };
+
 
 export default EventCard;
