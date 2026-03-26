@@ -1,38 +1,47 @@
+import React from "react";
+import Input from "./Form/Input";
 import { supabase } from "../utils/supabase";
 import { useNavigate } from "react-router";
-import { useContext, useEffect } from "react";
-import { SessionContext } from "../Contexts/SessionContext";
-import Input from "./Form/Input";
 
-
-const EventForm = () => {
-    const { event } = useContext(SessionContext);
+const EventForm = ({ eventData = null }) => {
     const navigate = useNavigate();
 
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
+    const insertEvent = async (formEvent) => {
+        const formData = new FormData(formEvent.target);
         const formDataObject = Object.fromEntries(formData.entries());
-        console.log("formDataObject", formDataObject);
-        const { data: eventData, error: eventError } = await supabase
+
+        const { data: eventDataResult, error: eventError } = await supabase
             .from("events")
-            .insert([formDataObject])
+            .insert(formDataObject)
             .select()
             .single();
         if (eventError) alert(eventError);
-        if (eventData) {
-            navigate("/manage-events");
-            console.log(eventData);
-
-        }
+        if (eventDataResult) navigate("/manage-events");
     };
 
-    useEffect(() => { }, [event, navigate])
-    if (event) {
-        navigate("/manage-events");
-    }
+    const updateEvent = async (formEvent) => {
+        const formData = new FormData(formEvent.target);
+        const formDataObject = Object.fromEntries(formData.entries());
 
+        const { data: eventDataResult, error: eventError } = await supabase
+            .from("events")
+            .update(formDataObject)
+            .eq("id", eventData.id)
+            .select()
+            .single();
+        if (eventError) alert(eventError);
+        if (eventDataResult) navigate("/manage-events");
+    };
+
+    const handleSubmit = (formEvent) => {
+        formEvent.preventDefault();
+
+        if (!eventData) {
+            insertEvent(formEvent);
+        } else {
+            updateEvent(formEvent);
+        }
+    };
 
     return (
         <div className="pt-5">
@@ -45,36 +54,42 @@ const EventForm = () => {
                             label="Title"
                             placeholder="Enter Title"
                             name="title"
+                            defaultValue={eventData?.title}
                         />
                         <Input
                             type="date"
                             label="Start Date"
                             placeholder="Select Start Date"
                             name="start_date"
+                            defaultValue={eventData?.start_date}
                         />
                         <Input
                             type="date"
                             label="End Date"
                             placeholder="Select End Date"
                             name="end_date"
+                            defaultValue={eventData?.end_date}
                         />
                         <Input
                             type="time"
                             label="Start Time"
                             placeholder="Select Start Time"
                             name="start_time"
+                            defaultValue={eventData?.start_time}
                         />
                         <Input
                             type="time"
                             label="End Time"
                             placeholder="Select End Time"
                             name="end_time"
+                            defaultValue={eventData?.end_time}
                         />
                         <Input
                             type="text"
                             label="Location"
                             placeholder="Enter Location"
                             name="location"
+                            defaultValue={eventData?.location}
                         />
                     </div>
                     <div className="flex-1">
@@ -82,18 +97,23 @@ const EventForm = () => {
                             <legend className="fieldset-legend">Description</legend>
                             <textarea
                                 className="textarea h-full w-full"
-                                placeholder="Bio"
+                                placeholder="Description"
                                 rows={20}
                                 name="description"
-                            ></textarea>
+                            >
+                                {eventData?.description}
+                            </textarea>
                         </fieldset>
                     </div>
                 </div>
-                <button className="btn btn-primary mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5">
-                    Save Event</button>
+                <div className="text-right mt-5">
+                    <button className="btn btn-primary rounded-full" type="submit">
+                        Save Event
+                    </button>
+                </div>
             </form>
         </div>
-    )
-}
+    );
+};
 
-export default EventForm
+export default EventForm;

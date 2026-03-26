@@ -1,12 +1,13 @@
-import MainLayout from "../Layouts/MainLayout"
-import { useParams } from "react-router"
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
+import MainLayout from "../Layouts/MainLayout";
+import { useParams } from "react-router";
+import { useEffect } from "react";
 import { supabase } from "../utils/supabase";
+import EventForm from "../components/EventForm";
 
 const EditEvent = () => {
-    const { eventId } = useParams()
+    const { eventId } = useParams();
     const [event, setEvent] = useState(null);
-
 
     useEffect(() => {
         const fetchEvent = async () => {
@@ -21,10 +22,11 @@ const EditEvent = () => {
 
         fetchEvent();
     }, [eventId]);
-
-
-    return <MainLayout>{event?.title}</MainLayout>
-
+    return (
+        <MainLayout>
+            <EventForm eventData={event} />
+        </MainLayout>
+    );
 };
 
-export default EditEvent
+export default EditEvent;
