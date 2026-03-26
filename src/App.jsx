@@ -11,6 +11,7 @@ import Edit from "./pages/Edit";
 import ManageEvents from "./pages/ManageEvents";
 import AddEvent from "./pages/AddEvent";
 import EditEvent from "./pages/EditEvent";
+import Events from "./Pages/Events";
 
 function App() {
   // State to hold the current user session
@@ -68,6 +69,9 @@ function App() {
       <Route path="/manage-events" element={<ManageEvents />} />
       <Route path="/add-event" element={<AddEvent />} />
       <Route path="/edit-event/:eventId" element={<EditEvent />} />
+      <Route path="/events" element={<Events />} />
+
+
 
 
 
