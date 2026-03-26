@@ -1,0 +1,99 @@
+import { supabase } from "../utils/supabase";
+import { useNavigate } from "react-router";
+import { useContext, useEffect } from "react";
+import { SessionContext } from "../Contexts/SessionContext";
+import Input from "./Form/Input";
+
+
+const EventForm = () => {
+    const { event } = useContext(SessionContext);
+    const navigate = useNavigate();
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const formDataObject = Object.fromEntries(formData.entries());
+        console.log("formDataObject", formDataObject);
+        const { data: eventData, error: eventError } = await supabase
+            .from("events")
+            .insert([formDataObject])
+            .select()
+            .single();
+        if (eventError) alert(eventError);
+        if (eventData) {
+            navigate("/manage-events");
+            console.log(eventData);
+
+        }
+    };
+
+    useEffect(() => { }, [event, navigate])
+    if (event) {
+        navigate("/manage-events");
+    }
+
+
+    return (
+        <div className="pt-5">
+            <form onSubmit={handleSubmit}>
+                <div className="flex">
+                    <div className="w-1/3">
+                        {/* title, start date, end date, start time, end time, location */}
+                        <Input
+                            type="text"
+                            label="Title"
+                            placeholder="Enter Title"
+                            name="title"
+                        />
+                        <Input
+                            type="date"
+                            label="Start Date"
+                            placeholder="Select Start Date"
+                            name="start_date"
+                        />
+                        <Input
+                            type="date"
+                            label="End Date"
+                            placeholder="Select End Date"
+                            name="end_date"
+                        />
+                        <Input
+                            type="time"
+                            label="Start Time"
+                            placeholder="Select Start Time"
+                            name="start_time"
+                        />
+                        <Input
+                            type="time"
+                            label="End Time"
+                            placeholder="Select End Time"
+                            name="end_time"
+                        />
+                        <Input
+                            type="text"
+                            label="Location"
+                            placeholder="Enter Location"
+                            name="location"
+                        />
+                    </div>
+                    <div className="flex-1">
+                        <fieldset className="fieldset">
+                            <legend className="fieldset-legend">Description</legend>
+                            <textarea
+                                className="textarea h-full w-full"
+                                placeholder="Bio"
+                                rows={20}
+                                name="description"
+                            ></textarea>
+                        </fieldset>
+                    </div>
+                </div>
+                <button className="btn btn-primary mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5">
+                    Save Event</button>
+            </form>
+        </div>
+    )
+}
+
+export default EventForm

@@ -13,7 +13,7 @@ const Login = () => {
 
     useEffect(() => {
         if (profile?.role === "user") {
-            navigate("/HomePage");
+            navigate("/");
         }
         else if (profile?.role === "admin") {
             navigate("/manage-events");

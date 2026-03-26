@@ -20,7 +20,7 @@ const SignUp = () => {
   // If there is a session, navigate to the homepage
   useEffect(() => { }, [session, navigate])
   if (session) {
-    navigate("/HomePage");
+    navigate("/");
   }
 
   // Handle form submission for signing up
