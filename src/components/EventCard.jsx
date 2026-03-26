@@ -53,7 +53,7 @@ const EventCard = ({ event }) => {
                 )}
 
                 {profile?.role === "user" && (
-                    <button class="btn btn-primary rounded-full" onClick={register}>
+                    <button className="btn btn-primary rounded-full" onClick={register}>
 
                         Register
                     </button>

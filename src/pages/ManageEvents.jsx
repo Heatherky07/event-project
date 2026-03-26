@@ -7,6 +7,7 @@ import EventCard from "../components/EventCard";
 
 const ManageEvents = () => {
     const [events, setEvents] = useState(null);
+    const [registrations, setRegistrations] = useState(null);
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -18,6 +19,8 @@ const ManageEvents = () => {
         };
 
         fetchEvents();
+
+
     }, []);
 
     return (

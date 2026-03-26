@@ -19,13 +19,13 @@ const NavBar = () => {
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex w-full max-w-7xl mx-auto">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl px-0">
+          <div className="btn btn-ghost text-xl px-0">
             <NavLink
               to="/">
               <span className="text-primary">Event</span>
               <span className="text-secondary">Gate</span>
             </NavLink>
-          </a>
+          </div>
         </div>
         <div className="flex">
 
